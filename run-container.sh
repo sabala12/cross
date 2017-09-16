@@ -79,11 +79,11 @@ setVal VOLUME_OPT "-v $VOLUME_PATH:/opt/cross"
 mkdir -p $VOLUME_PATH
 killContainer $CONTAINER_NAME false
 
-                #$VOLUME_OPT \
-CMD="docker run --name="${CONTAINER_NAME}" \
+CMD="docker run $VOLUME_OPT \
+		--name="${CONTAINER_NAME}" \
                 --restart=always \
-                -it \
-                uros:cross"
+                -itd \
+                uros:cross /opt/entry.sh"
 
 echo "********************"
 echo "       cross        "

@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 #===============================================================================
 #
-#          FILE: deploy.sh
+#          FILE: entry.sh
 # 
-#         USAGE: ./deploy.sh 
+#         USAGE: ./entry.sh 
 # 
 #   DESCRIPTION: 
 # 
@@ -13,7 +13,7 @@
 #         NOTES: ---
 #        AUTHOR: ERAN SABALA (sabalah21@gmail.com), 
 #  ORGANIZATION: 
-#       CREATED: 16/09/17 16:16:33
+#       CREATED: 16/09/17 23:24:25
 #      REVISION:  ---
 #===============================================================================
 
@@ -26,7 +26,21 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 __base="$(basename ${__file} .sh)"
 __root="$(cd "$(dirname "${__dir}")" && pwd)" # <-- change this as it depends on your app
 
-name="cross"
-volume="/home/eran/Dev/cross/x86_64"
+init()
+{
+	cd /opt/cross-sources/build-gcc      && make install-gcc
+	cd /opt/cross-sources/build-binutils && make install
+	cd /opt
+}
 
-./run-container.sh -n $name -v $volume
+cmd()
+{
+	bash
+}
+
+if [[ -z "$(ls -A  /opt/cross)" ]]; then
+	init
+	cmd
+else
+	cmd
+fi

@@ -66,6 +66,7 @@ RUN 	mkdir build-gcc && \
 	make all-gcc
 
 WORKDIR /opt
+ADD	entry.sh	/opt
 CMD	["/bin/bash"]
 
 
